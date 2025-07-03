@@ -1,7 +1,15 @@
-from flask import Blueprint, json, request
+from flask import Blueprint, request, jsonify
+from datetime import datetime
+from pymongo import MongoClient
+import os
 
-webhook = Blueprint('Webhook', __name__, url_prefix='/webhook')
+webhook = Blueprint('webhook', __name__)
 
-@webhook.route('/receiver', methods=["POST"])
-def receiver():
-    return {}, 200
+client = MongoClient(os.getenv('MONGO_URI'))
+db = client['github_events']
+collection = db['events']
+
+@webhook.route('/webhook', methods=['POST'])
+def receive_webhook():
+    # your logic here
+    return jsonify({"status": "ok"}), 200

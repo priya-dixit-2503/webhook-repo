@@ -3,3 +3,4 @@ Flask-Cors
 Flask-Login
 Flask-PyMongo
 pymongo
+Flask==2.2.5
